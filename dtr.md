@@ -10,7 +10,6 @@ New gist
 Last active 14 days ago • 
 Report gist
 Embed  
-<script src="https://gist.github.com/OphDub/d22fc558d127aaab84564a21ebfc03ad.js"></script>
   Download ZIP
  Code  Revisions 5
 DTR Memo: Linked List
@@ -21,32 +20,44 @@ Project: Linked List
 Group Member Names: Edgar and Parker
 
 Project Expectations: What does each group member hope to get out of this project? 
-- Egar: 
-- Parker:
+- Edgar: Strengthen JS 
+- Parker: Cement my understanding event listeners dynamically created elements, write concise functions
 
-Goals and expectations:
+Goals and expectations: Phase 3 completion
 
 Team strengths: 
+parker - debugging, breaking down problems
+edgar - being dependable, getting things done 
 
-How to overcome obstacles: 
+How to overcome obstacles: Communication, asking for help, 
 
 Schedule Expectations (When are we available to work together and individually?): 
+Parker - Free almost all the time, but not during lunch, or saturday and sunday mornign before 11:30
+Edgar - Free a lot too, potential to change occasionally.
 
 Communication Expectations (How and often will we communicate? How do we keep lines of communication open?): 
+Parker - Slack and phone number, keep in touch
+Edgar - Slack notifactions less than number
 
 Abilities Expectations (Technical strengths and areas for desired improvement): 
+Parker- JS / git / github - CSS debuggin skills
+Edgar - HTML/CSS jQuery
 
 Workload Expectations (What features do we each want to work on?): 
 
+
 Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests): 
+Use PR's with messages as a means of comm. Use git and github effectively. Specific branches for specific functions.
 
 Expectations for giving and receiving feedback:
+Parker- Recieving honest feedback, and giving back feedback if needed. 
+Edgar- Concise questions, honest feedback, notice patterns tell. 
 
 Agenda to discuss project launch:
 
 Ideas:
 
-Tools: -GITHUB -ScreenHero
+Tools: Waffle io, github issues
 
 Additional Notes:
 
