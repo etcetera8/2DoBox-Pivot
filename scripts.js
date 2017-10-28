@@ -96,12 +96,10 @@ function persistTextEdit() {
 };
 
 //ANON
-$('.idea-card-wrap').on('blur', 'h1', function(event){
-  persistTitleEdit(event);
-});
+$('.idea-card-wrap').on('blur', 'h1', persistTitleEdit);
 
-function persistTitleEdit(event) {
-  var parentArticle = $(event.target).closest('article');
+function persistTitleEdit() {
+  var parentArticle = $(this).closest('article');
   var id = parentArticle.prop('id');
   var newTitle = parentArticle.children('h1').text();
   var objectFromLocal = localStorage.getItem(id);
