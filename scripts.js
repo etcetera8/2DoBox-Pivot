@@ -6,6 +6,7 @@ var IdeaCard = function(title, idea, id) {
 };
 var ratingArray = ['Swill', 'Plausible', 'Genius'];
 
+//ANON FUNCTION
 $(document).ready(function() {
   for (let i = 0; i < localStorage.length; i++) {
   var retrievedObject = localStorage.getItem(localStorage.key(i));
@@ -14,6 +15,8 @@ $(document).ready(function() {
   };
 });
 
+
+//ANON FUNCTION
 $('.save-button').on('click', function(event) {
   event.preventDefault();
   var titleInput = $('#title-input').val();
@@ -25,6 +28,8 @@ $('.save-button').on('click', function(event) {
   sendCardToLocalStorage(titleInput, ideaInput, dateNow);
 });
 
+
+//ANON FUNCTION
 $(window).on('keydown', function() {
   if (($('#title-input').val() !== '') && ($('#idea-input').val() !== '')) {
     enableSaveButton();
@@ -33,6 +38,9 @@ $(window).on('keydown', function() {
   };
 });
 
+
+//ANON FUCNTION
+//OVER 8 LINES
 $('.idea-card-wrap').on('click', '.upvote-button', function() {
   var clickedCardId = $(this).parent('article').attr('id');
   var theObject = localStorage.getItem(clickedCardId);
@@ -48,6 +56,8 @@ $('.idea-card-wrap').on('click', '.upvote-button', function() {
   };
 });
 
+//ANON FUNCTION
+//OVER 8 LINES
 $('.idea-card-wrap').on('click', '.downvote-button', function() {
   var clickedCardId = $(this).parent('article').attr('id');
   var theObject = localStorage.getItem(clickedCardId);
@@ -63,18 +73,28 @@ $('.idea-card-wrap').on('click', '.downvote-button', function() {
   };
 });
 
-$('.idea-card-wrap').on('click', '.delete-button', function(event) {
-  deleteCard(event);
-});
 
+//ANON
+$('.idea-card-wrap').on('click', '.delete-button', deleteCard)
+
+function deleteCard() {
+  var parentArticle = $(this).closest('article');
+  var id = parentArticle.prop('id');
+  parentArticle.remove();
+  localStorage.removeItem(id);
+};
+
+//ANON
 $('.idea-card-wrap').on('blur', 'p', function(event){
   persistTextEdit(event);
 });
 
+//ANON
 $('.idea-card-wrap').on('blur', 'h1', function(event){
   persistTitleEdit(event);
 });
 
+//ANON
 $('#search-box').on('keyup', function() {
   $('article').remove();
   arrayOfLocalStorage();
@@ -93,21 +113,15 @@ function arrayOfLocalStorage() {
 function createCard(id,title,idea,counter = 0) {
   $('.idea-card-wrap').prepend(`<article id="${id}" class="idea-card">
   <h1 class="user-idea" contenteditable="true">${title}</h1>
-  <button class="delete-button" aria-label="Delete Button"></button>
-  <p class="user-idea-details" contenteditable="true">${idea}</p>
-  <button class="upvote-button" aria-label="upvote button"></button>
-  <button class="downvote-button" aria-label="downvote button"></button>
-  <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
+    <button class="delete-button" aria-label="Delete Button"></button>
+    <p class="user-idea-details" contenteditable="true">${idea}</p>
+    <button class="upvote-button" aria-label="upvote button"></button>
+    <button class="downvote-button" aria-label="downvote button"></button>
+    <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
   <hr>
   </article>`);
 };
 
-function deleteCard(event) {
-  var parentArticle = $(event.target).closest('article');
-  var id = parentArticle.prop('id');
-  parentArticle.remove();
-  localStorage.removeItem(id);
-};
 
 function disableSaveButton() {
   $('.save-button').attr('disabled', true);
