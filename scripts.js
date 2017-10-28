@@ -6,18 +6,19 @@ var IdeaCard = function(title, idea, id) {
 };
 var ratingArray = ['Swill', 'Plausible', 'Genius'];
 
-//ANON FUNCTION
-$(document).ready(function() {
+$(document).ready(retrieveCard);
+
+function retrieveCard() {
   for (let i = 0; i < localStorage.length; i++) {
   var retrievedObject = localStorage.getItem(localStorage.key(i));
   var parsedObject = JSON.parse(retrievedObject);
   createCard(parsedObject.id, parsedObject.title, parsedObject.idea, parsedObject.counter);
   };
-});
+}
 
+$('.save-button').on('click', saveCard);
 
-//ANON FUNCTION
-$('.save-button').on('click', function(event) {
+function saveCard() {
   event.preventDefault();
   var titleInput = $('#title-input').val();
   var ideaInput = $('#idea-input').val();
@@ -26,7 +27,23 @@ $('.save-button').on('click', function(event) {
   $('form')[0].reset();
   disableSaveButton();
   sendCardToLocalStorage(titleInput, ideaInput, dateNow);
-});
+}
+
+function createCard(id,title,idea,counter = 0) {
+  $('.idea-card-wrap').prepend(`<article id="${id}" class="idea-card">
+  <h1 class="user-idea" contenteditable="true">${title}</h1>
+    <button class="delete-button" aria-label="Delete Button"></button>
+    <p class="user-idea-details" contenteditable="true">${idea}</p>
+    <button class="upvote-button" aria-label="upvote button"></button>
+    <button class="downvote-button" aria-label="downvote button"></button>
+    <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
+  <hr>
+  </article>`);
+};
+
+function disableSaveButton() {
+  $('.save-button').attr('disabled', true);
+};
 
 
 //ANON FUNCTION
@@ -130,22 +147,9 @@ function runSearch(newArray) {
 };
 
 
-function createCard(id,title,idea,counter = 0) {
-  $('.idea-card-wrap').prepend(`<article id="${id}" class="idea-card">
-  <h1 class="user-idea" contenteditable="true">${title}</h1>
-    <button class="delete-button" aria-label="Delete Button"></button>
-    <p class="user-idea-details" contenteditable="true">${idea}</p>
-    <button class="upvote-button" aria-label="upvote button"></button>
-    <button class="downvote-button" aria-label="downvote button"></button>
-    <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
-  <hr>
-  </article>`);
-};
 
 
-function disableSaveButton() {
-  $('.save-button').attr('disabled', true);
-};
+
 
 function enableSaveButton() {
   $('.save-button').removeAttr('disabled');
@@ -156,7 +160,6 @@ function printSearchResults(searchedArray) {
     createCard(result.id,result.title,result.idea,result.counter);
   });
 };
-
 
 function sendCardToLocalStorage(titleInput, ideaInput, dateNow){
   var ideaCard = new IdeaCard(titleInput, ideaInput, dateNow);
