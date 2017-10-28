@@ -62,10 +62,10 @@ function upVote() {
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
   $(this).siblings('.downvote-button').removeAttr('disabled');
-  qualityToLocalStorage(clickedCardId, theObject, parsedTheObject, this);
+  upVoteToLocalStorage(clickedCardId, theObject, parsedTheObject, this);
 }
 
-function qualityToLocalStorage(id, obj, parsedObj, thisEl) {
+function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
   $(thisEl).siblings('.downvote-button').removeAttr('disabled');
   if (parsedObj.counter === 2) {
     $(thisEl).attr('disabled', true);
@@ -78,7 +78,6 @@ function qualityToLocalStorage(id, obj, parsedObj, thisEl) {
 }
 
 
-//ANON FUNCTION
 //OVER 8 LINES
 $('.idea-card-wrap').on('click', '.downvote-button', downVote);
 
@@ -87,15 +86,19 @@ function downVote() {
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
   $(this).siblings('.upvote-button').removeAttr('disabled');
-  if (parsedTheObject.counter === 0) {
-    $(this).attr('disabled', true);
-  } else {
-    parsedTheObject.counter--;
-    $(this).siblings('h2').find('.rating').text(ratingArray[parsedTheObject.counter]);
-    var stringifiedTheObject = JSON.stringify(parsedTheObject);
-    localStorage.setItem(clickedCardId, stringifiedTheObject);
-  };
+  downVoteToLocalStorage(clickedCardId, theObject, parsedTheObject, this);
 }
+
+function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
+  if (parsedObj.counter === 0) {
+    $(thisEl).attr('disabled', true);
+  } else {
+    parsedObj.counter--;
+    $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
+    var stringifiedTheObject = JSON.stringify(parsedObj);
+    localStorage.setItem(id, stringifiedTheObject);
+  };
+};
 
 $('.idea-card-wrap').on('click', '.delete-button', deleteCard)
 
@@ -152,11 +155,6 @@ function runSearch(newArray) {
   });
   printSearchResults(searchedArray);
 };
-
-
-
-
-
 
 function enableSaveButton() {
   $('.save-button').removeAttr('disabled');
