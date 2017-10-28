@@ -54,7 +54,7 @@ function saveButtonToggle() {
     disableSaveButton();
   };
 }
-//OVER 8 LINES
+
 $('.idea-card-wrap').on('click', '.upvote-button', upVote);
 
 function upVote() {
@@ -62,15 +62,21 @@ function upVote() {
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
   $(this).siblings('.downvote-button').removeAttr('disabled');
-  if (parsedTheObject.counter === 2) {
-    $(this).attr('disabled', true);
+  qualityToLocalStorage(clickedCardId, theObject, parsedTheObject, this);
+}
+
+function qualityToLocalStorage(id, obj, parsedObj, thisEl) {
+  $(thisEl).siblings('.downvote-button').removeAttr('disabled');
+  if (parsedObj.counter === 2) {
+    $(thisEl).attr('disabled', true);
   } else {
-    parsedTheObject.counter++;
-    $(this).siblings('h2').find('.rating').text(ratingArray[parsedTheObject.counter]);
-    var stringifiedTheObject = JSON.stringify(parsedTheObject);
-    localStorage.setItem(clickedCardId, stringifiedTheObject);
+    parsedObj.counter++;
+    $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
+    var stringifiedTheObject = JSON.stringify(parsedObj);
+    localStorage.setItem(id, stringifiedTheObject);
   };
 }
+
 
 //ANON FUNCTION
 //OVER 8 LINES
