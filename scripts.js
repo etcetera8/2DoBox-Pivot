@@ -73,8 +73,6 @@ $('.idea-card-wrap').on('click', '.downvote-button', function() {
   };
 });
 
-
-//ANON
 $('.idea-card-wrap').on('click', '.delete-button', deleteCard)
 
 function deleteCard() {
@@ -84,15 +82,34 @@ function deleteCard() {
   localStorage.removeItem(id);
 };
 
-//ANON
-$('.idea-card-wrap').on('blur', 'p', function(event){
-  persistTextEdit(event);
-});
+$('.idea-card-wrap').on('blur', 'p', persistTextEdit);
+
+function persistTextEdit() {
+  var parentArticle = $(this).closest('article');
+  var id = parentArticle.prop('id');
+  var newText = parentArticle.children('p').text();
+  var objectFromLocal = localStorage.getItem(id);
+  var object = JSON.parse(objectFromLocal);
+  object.idea = newText;
+  var objectString = JSON.stringify(object);
+  localStorage.setItem(id, objectString);
+};
 
 //ANON
 $('.idea-card-wrap').on('blur', 'h1', function(event){
   persistTitleEdit(event);
 });
+
+function persistTitleEdit(event) {
+  var parentArticle = $(event.target).closest('article');
+  var id = parentArticle.prop('id');
+  var newTitle = parentArticle.children('h1').text();
+  var objectFromLocal = localStorage.getItem(id);
+  var object = JSON.parse(objectFromLocal);
+  object.title = newTitle;
+  var objectString = JSON.stringify(object);
+  localStorage.setItem(id, objectString);
+};
 
 //ANON
 $('#search-box').on('keyup', function() {
@@ -131,27 +148,7 @@ function enableSaveButton() {
   $('.save-button').removeAttr('disabled');
 };
 
-function persistTextEdit(event) {
-  var parentArticle = $(event.target).closest('article');
-  var id = parentArticle.prop('id');
-  var newText = parentArticle.children('p').text();
-  var objectFromLocal = localStorage.getItem(id);
-  var object = JSON.parse(objectFromLocal);
-  object.idea = newText;
-  var objectString = JSON.stringify(object);
-  localStorage.setItem(id, objectString);
-};
 
-function persistTitleEdit(event) {
-  var parentArticle = $(event.target).closest('article');
-  var id = parentArticle.prop('id');
-  var newTitle = parentArticle.children('h1').text();
-  var objectFromLocal = localStorage.getItem(id);
-  var object = JSON.parse(objectFromLocal);
-  object.title = newTitle;
-  var objectString = JSON.stringify(object);
-  localStorage.setItem(id, objectString);
-};
 
 function printSearchResults(searchedArray) {
   searchedArray.forEach(function(result) {
