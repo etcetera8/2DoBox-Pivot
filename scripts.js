@@ -45,20 +45,19 @@ function disableSaveButton() {
   $('.save-button').attr('disabled', true);
 };
 
+$(window).on('keydown', saveButtonToggle);
 
-//ANON FUNCTION
-$(window).on('keydown', function() {
+function saveButtonToggle() {
   if (($('#title-input').val() !== '') && ($('#idea-input').val() !== '')) {
     enableSaveButton();
   } else {
     disableSaveButton();
   };
-});
-
-
-//ANON FUCNTION
+}
 //OVER 8 LINES
-$('.idea-card-wrap').on('click', '.upvote-button', function() {
+$('.idea-card-wrap').on('click', '.upvote-button', upVote);
+
+function upVote() {
   var clickedCardId = $(this).parent('article').attr('id');
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
@@ -71,11 +70,13 @@ $('.idea-card-wrap').on('click', '.upvote-button', function() {
     var stringifiedTheObject = JSON.stringify(parsedTheObject);
     localStorage.setItem(clickedCardId, stringifiedTheObject);
   };
-});
+}
 
 //ANON FUNCTION
 //OVER 8 LINES
-$('.idea-card-wrap').on('click', '.downvote-button', function() {
+$('.idea-card-wrap').on('click', '.downvote-button', downVote);
+
+function downVote() {
   var clickedCardId = $(this).parent('article').attr('id');
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
@@ -88,7 +89,7 @@ $('.idea-card-wrap').on('click', '.downvote-button', function() {
     var stringifiedTheObject = JSON.stringify(parsedTheObject);
     localStorage.setItem(clickedCardId, stringifiedTheObject);
   };
-});
+}
 
 $('.idea-card-wrap').on('click', '.delete-button', deleteCard)
 
