@@ -4,7 +4,6 @@ var IdeaCard = function(title, idea, id) {
   this.id = id;
   this.counter = 0;
 };
-var ratingArray = ['Swill', 'Plausible', 'Genius'];
 
 $(document).ready(retrieveCard);
 
@@ -30,6 +29,8 @@ function saveCard() {
 }
 
 function createCard(id,title,idea,counter = 0) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+
   $('.idea-card-wrap').prepend(`<article id="${id}" class="idea-card">
   <h1 class="user-idea" contenteditable="true">${title}</h1>
     <button class="delete-button" aria-label="Delete Button"></button>
@@ -66,17 +67,15 @@ function upVote() {
 }
 
 function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
   $(thisEl).siblings('.downvote-button').removeAttr('disabled');
   if (parsedObj.counter === 2) {
     $(thisEl).attr('disabled', true);
-  } else {
-    parsedObj.counter++;
+  } else { parsedObj.counter++;
     $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
-    var stringifiedTheObject = JSON.stringify(parsedObj);
-    localStorage.setItem(id, stringifiedTheObject);
+    localStorage.setItem(id, JSON.stringify(parsedObj));
   };
 }
-
 
 //OVER 8 LINES
 $('.idea-card-wrap').on('click', '.downvote-button', downVote);
@@ -90,13 +89,12 @@ function downVote() {
 }
 
 function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
   if (parsedObj.counter === 0) {
     $(thisEl).attr('disabled', true);
-  } else {
-    parsedObj.counter--;
+  } else { parsedObj.counter--;
     $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
-    var stringifiedTheObject = JSON.stringify(parsedObj);
-    localStorage.setItem(id, stringifiedTheObject);
+    localStorage.setItem(id, JSON.stringify(parsedObj));
   };
 };
 
