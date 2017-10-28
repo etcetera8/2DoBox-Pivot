@@ -4,7 +4,6 @@ var IdeaCard = function(title, idea, id) {
   this.id = id;
   this.counter = 0;
 };
-var ratingArray = ['Swill', 'Plausible', 'Genius'];
 
 $(document).ready(retrieveCard);
 
@@ -30,6 +29,8 @@ function saveCard() {
 }
 
 function createCard(id,title,idea,counter = 0) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+
   $('.idea-card-wrap').prepend(`<article id="${id}" class="idea-card">
   <h1 class="user-idea" contenteditable="true">${title}</h1>
     <button class="delete-button" aria-label="Delete Button"></button>
@@ -54,7 +55,7 @@ function saveButtonToggle() {
     disableSaveButton();
   };
 }
-//OVER 8 LINES
+
 $('.idea-card-wrap').on('click', '.upvote-button', upVote);
 
 function upVote() {
@@ -62,17 +63,20 @@ function upVote() {
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
   $(this).siblings('.downvote-button').removeAttr('disabled');
-  if (parsedTheObject.counter === 2) {
-    $(this).attr('disabled', true);
-  } else {
-    parsedTheObject.counter++;
-    $(this).siblings('h2').find('.rating').text(ratingArray[parsedTheObject.counter]);
-    var stringifiedTheObject = JSON.stringify(parsedTheObject);
-    localStorage.setItem(clickedCardId, stringifiedTheObject);
+  upVoteToLocalStorage(clickedCardId, theObject, parsedTheObject, this);
+}
+
+function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  $(thisEl).siblings('.downvote-button').removeAttr('disabled');
+  if (parsedObj.counter === 2) {
+    $(thisEl).attr('disabled', true);
+  } else { parsedObj.counter++;
+    $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
+    localStorage.setItem(id, JSON.stringify(parsedObj));
   };
 }
 
-//ANON FUNCTION
 //OVER 8 LINES
 $('.idea-card-wrap').on('click', '.downvote-button', downVote);
 
@@ -81,15 +85,18 @@ function downVote() {
   var theObject = localStorage.getItem(clickedCardId);
   var parsedTheObject = JSON.parse(theObject);
   $(this).siblings('.upvote-button').removeAttr('disabled');
-  if (parsedTheObject.counter === 0) {
-    $(this).attr('disabled', true);
-  } else {
-    parsedTheObject.counter--;
-    $(this).siblings('h2').find('.rating').text(ratingArray[parsedTheObject.counter]);
-    var stringifiedTheObject = JSON.stringify(parsedTheObject);
-    localStorage.setItem(clickedCardId, stringifiedTheObject);
-  };
+  downVoteToLocalStorage(clickedCardId, theObject, parsedTheObject, this);
 }
+
+function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  if (parsedObj.counter === 0) {
+    $(thisEl).attr('disabled', true);
+  } else { parsedObj.counter--;
+    $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
+    localStorage.setItem(id, JSON.stringify(parsedObj));
+  };
+};
 
 $('.idea-card-wrap').on('click', '.delete-button', deleteCard)
 
@@ -146,11 +153,6 @@ function runSearch(newArray) {
   });
   printSearchResults(searchedArray);
 };
-
-
-
-
-
 
 function enableSaveButton() {
   $('.save-button').removeAttr('disabled');
