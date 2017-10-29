@@ -1,6 +1,6 @@
-var IdeaCard = function(title, idea, id) {
+var TaskCard = function(title, task, id) {
   this.title = title;
-  this.idea = idea;
+  this.task = task;
   this.id = id;
   this.counter = 0;
 };
@@ -11,7 +11,7 @@ function retrieveCard() {
   for (let i = 0; i < localStorage.length; i++) {
   var retrievedObject = localStorage.getItem(localStorage.key(i));
   var parsedObject = JSON.parse(retrievedObject);
-  createCard(parsedObject.id, parsedObject.title, parsedObject.idea, parsedObject.counter);
+  createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);
   };
 }
 
@@ -20,21 +20,21 @@ $('.save-button').on('click', saveCard);
 function saveCard() {
   event.preventDefault();
   var titleInput = $('#title-input').val();
-  var ideaInput = $('#idea-input').val();
+  var taskInput = $('#task-input').val();
   var dateNow = Date.now();
-  createCard(dateNow, titleInput, ideaInput);
+  createCard(dateNow, titleInput, taskInput);
   $('form')[0].reset();
   disableSaveButton();
-  sendCardToLocalStorage(titleInput, ideaInput, dateNow);
+  sendCardToLocalStorage(titleInput, taskInput, dateNow);
 }
 
-function createCard(id,title,idea,counter = 0) {
+function createCard(id,title,task,counter = 0) {
   var ratingArray = ['Swill', 'Plausible', 'Genius'];
 
-  $('.idea-card-wrap').prepend(`<article id="${id}" class="idea-card">
-  <h1 class="user-idea" contenteditable="true">${title}</h1>
+  $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
+  <h1 class="user-task" contenteditable="true">${title}</h1>
     <button class="delete-button" aria-label="Delete Button"></button>
-    <p class="user-idea-details" contenteditable="true">${idea}</p>
+    <p class="user-task-details" contenteditable="true">${task}</p>
     <button class="upvote-button" aria-label="upvote button"></button>
     <button class="downvote-button" aria-label="downvote button"></button>
     <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
@@ -49,14 +49,14 @@ function disableSaveButton() {
 $(window).on('keydown', saveButtonToggle);
 
 function saveButtonToggle() {
-  if (($('#title-input').val() !== '') && ($('#idea-input').val() !== '')) {
+  if (($('#title-input').val() !== '') && ($('#task-input').val() !== '')) {
     enableSaveButton();
   } else {
     disableSaveButton();
   };
 }
 
-$('.idea-card-wrap').on('click', '.upvote-button', upVote);
+$('.task-card-wrap').on('click', '.upvote-button', upVote);
 
 function upVote() {
   var clickedCardId = $(this).parent('article').attr('id');
@@ -78,7 +78,7 @@ function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
 }
 
 //OVER 8 LINES
-$('.idea-card-wrap').on('click', '.downvote-button', downVote);
+$('.task-card-wrap').on('click', '.downvote-button', downVote);
 
 function downVote() {
   var clickedCardId = $(this).parent('article').attr('id');
@@ -98,7 +98,7 @@ function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
   };
 };
 
-$('.idea-card-wrap').on('click', '.delete-button', deleteCard)
+$('.task-card-wrap').on('click', '.delete-button', deleteCard)
 
 function deleteCard() {
   var parentArticle = $(this).closest('article');
@@ -107,7 +107,7 @@ function deleteCard() {
   localStorage.removeItem(id);
 };
 
-$('.idea-card-wrap').on('blur', 'p', persistTextEdit);
+$('.task-card-wrap').on('blur', 'p', persistTextEdit);
 
 function persistTextEdit() {
   var parentArticle = $(this).closest('article');
@@ -115,12 +115,12 @@ function persistTextEdit() {
   var newText = parentArticle.children('p').text();
   var objectFromLocal = localStorage.getItem(id);
   var object = JSON.parse(objectFromLocal);
-  object.idea = newText;
+  object.task = newText;
   var objectString = JSON.stringify(object);
   localStorage.setItem(id, objectString);
 };
 
-$('.idea-card-wrap').on('blur', 'h1', persistTitleEdit);
+$('.task-card-wrap').on('blur', 'h1', persistTitleEdit);
 
 function persistTitleEdit() {
   var parentArticle = $(this).closest('article');
@@ -149,7 +149,7 @@ function arrayOfLocalStorage() {
 function runSearch(newArray) {
   var searchInput = $('#search-box').val().toUpperCase();
   var searchedArray = newArray.filter(function(card) {
-    return card.title.toUpperCase().includes(searchInput) || card.idea.toUpperCase().includes(searchInput);
+    return card.title.toUpperCase().includes(searchInput) || card.task.toUpperCase().includes(searchInput);
   });
   printSearchResults(searchedArray);
 };
@@ -160,12 +160,12 @@ function enableSaveButton() {
 
 function printSearchResults(searchedArray) {
   searchedArray.forEach(function(result) {
-    createCard(result.id,result.title,result.idea,result.counter);
+    createCard(result.id,result.title,result.task,result.counter);
   });
 };
 
-function sendCardToLocalStorage(titleInput, ideaInput, dateNow){
-  var ideaCard = new IdeaCard(titleInput, ideaInput, dateNow);
-  var stringIdeaCard = JSON.stringify(ideaCard);
-  localStorage.setItem(dateNow, stringIdeaCard);
+function sendCardToLocalStorage(titleInput, taskInput, dateNow){
+  var taskCard = new TaskCard(titleInput, taskInput, dateNow);
+  var stringTaskCard = JSON.stringify(taskCard);
+  localStorage.setItem(dateNow, stringTaskCard);
 };

@@ -65,7 +65,7 @@ p:focus {
   outline: 0;
 }
 
-.idea-input-wrap {
+.task-input-wrap {
   padding: 0px;
 }
 
@@ -101,15 +101,15 @@ p:focus {
   width: 88%;
 }
 
-/*Idea Card Section Styling*/
+/*Task Card Section Styling*/
 
-.idea-card-wrap {
+.task-card-wrap {
   margin: auto;
   max-width: 750px;
   padding: 20px;
 }
 
-.idea-card-wrap input {
+.task-card-wrap input {
   border: 1px solid #D1D3D4;
   color: #6D6E71;
   font-size: 1em;
@@ -120,34 +120,34 @@ p:focus {
   width: 93%;
 }
 
-.idea-card-wrap input:focus {
+.task-card-wrap input:focus {
   outline: none;
 }
 
-.idea-card-wrap input::placeholder {
+.task-card-wrap input::placeholder {
   color: #cccccc;
   font-size: 1em;
   font-weight: bold;
 }
 
-/*Idea Card Styling*/
+/*Task Card Styling*/
 
-.idea-card {
+.task-card {
   margin: auto;
   position: relative;
   width: 94%;
 }
 
-.idea-card h1 {
+.task-card h1 {
   font-size: 1.5em;
 }
 
-.idea-card h2 {
+.task-card h2 {
   font-size: 1em;
 }
 
-.idea-card h1,
-.idea-card h2 {
+.task-card h1,
+.task-card h2 {
   color: #6D6E71;
   display: inline-block;
   font-family: 'Roboto Slab', serif;
@@ -155,13 +155,13 @@ p:focus {
   margin: 0px;
 }
 
-.idea-card .rating,
-.idea-card p {
+.task-card .rating,
+.task-card p {
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
 }
 
-.idea-card p {
+.task-card p {
   color: #939598;
   font-size: 1em;
   margin: 15px 0px;
@@ -169,14 +169,14 @@ p:focus {
   overflow-y: scroll;
 }
 
-.idea-card hr {
+.task-card hr {
   border: 1px solid #D1D3D4;
   margin: 20px 0;
 }
 
 /*Button Styling*/
 
-.idea-card button {
+.task-card button {
   border: none;
   cursor: pointer;
   height: 30px;
@@ -185,29 +185,29 @@ p:focus {
   width: 30px;
 }
 
-.idea-card .delete-button {
+.task-card .delete-button {
   background: url(images/delete.svg) no-repeat;
   position: absolute;
   right: -5px;
 }
 
-.idea-card .delete-button:hover {
+.task-card .delete-button:hover {
   background: url(images/delete-hover.svg) no-repeat;
 }
 
-.idea-card .upvote-button {
+.task-card .upvote-button {
   background: url(images/upvote.svg) no-repeat;
 }
 
-.idea-card .upvote-button:hover {
+.task-card .upvote-button:hover {
   background: url(images/upvote-hover.svg) no-repeat;
 }
 
-.idea-card .downvote-button {
+.task-card .downvote-button {
   background: url(images/downvote.svg) no-repeat;
 }
 
-.idea-card .downvote-button:hover {
+.task-card .downvote-button:hover {
   background: url(images/downvote-hover.svg) no-repeat;
 }
 
@@ -230,7 +230,7 @@ p:focus {
     font-size: 5em;
   }
 
-  .idea-card {
+  .task-card {
     width: 100%;
   }
 }
