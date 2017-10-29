@@ -3,17 +3,41 @@ var TaskCard = function(title, task, id) {
   this.task = task;
   this.id = id;
   this.counter = 0;
+  this.completed = false;
 };
 
 $(document).ready(retrieveCard);
 
 function retrieveCard() {
   for (let i = 0; i < localStorage.length; i++) {
-  var retrievedObject = localStorage.getItem(localStorage.key(i));
-  var parsedObject = JSON.parse(retrievedObject);
-  createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);
+    console.log(parsedObject.completed)
+    if (parsedObject.completed === true) {
+      console.log(parsedObject.id)
+      var completedCardId = parsedObject.id
+      console.log($(`<article id="${completedCardId}">`))
+      $(`#${completedCardId}`).hide();
+      
+    }
   };
 }
+
+function createCard(id,title,task,counter = 0) {
+  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+
+  $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
+  <h1 class="user-task" contenteditable="true">${title}</h1>
+    <button class="delete-button" aria-label="Delete Button"></button>
+    <p class="user-task-details" contenteditable="true">${task}</p>
+    <button class="upvote-button" aria-label="upvote button"></button>
+    <button class="downvote-button" aria-label="downvote button"></button>
+    <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
+    <button class="task-complete-btn ${id}">Task Completed</button>
+  <hr>
+  </article>`);
+};
 
 $('.save-button').on('click', saveCard);
 
@@ -27,20 +51,6 @@ function saveCard() {
   disableSaveButton();
   sendCardToLocalStorage(titleInput, taskInput, dateNow);
 }
-
-function createCard(id,title,task,counter = 0) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
-
-  $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
-  <h1 class="user-task" contenteditable="true">${title}</h1>
-    <button class="delete-button" aria-label="Delete Button"></button>
-    <p class="user-task-details" contenteditable="true">${task}</p>
-    <button class="upvote-button" aria-label="upvote button"></button>
-    <button class="downvote-button" aria-label="downvote button"></button>
-    <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
-  <hr>
-  </article>`);
-};
 
 function disableSaveButton() {
   $('.save-button').attr('disabled', true);
@@ -97,6 +107,20 @@ function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
     localStorage.setItem(id, JSON.stringify(parsedObj));
   };
 };
+
+$('.task-card-wrap').on('click', '.task-complete-btn', taskCompleted)
+
+function taskCompleted() {
+  $(this).siblings('h1, p, h2').toggleClass('completed');
+  var parsedTheObject = JSON.parse(localStorage.getItem($(this).parent('article').attr('id')));
+  if (parsedTheObject.completed === false) {
+    parsedTheObject.completed = true;
+  } else { 
+    parsedTheObject.completed = false;
+  }
+  localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
+}
+
 
 $('.task-card-wrap').on('click', '.delete-button', deleteCard)
 
