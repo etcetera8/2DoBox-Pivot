@@ -13,15 +13,38 @@ function retrieveCard() {
     var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
     createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);
-    console.log(parsedObject.completed)
     if (parsedObject.completed === true) {
-      console.log(parsedObject.id)
       var completedCardId = parsedObject.id
-      console.log($(`<article id="${completedCardId}">`))
-      $(`#${completedCardId}`).hide();
-      
+      $(`#${completedCardId}`).hide()
     }
   };
+}
+$('.show-completed-btn').on('click', showCompleted);
+
+function showCompleted() {
+  for (let i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    if (parsedObject.completed === true) {
+      var completedCardId = parsedObject.id
+    $('article:hidden').find('h1, p, h2').toggleClass('completed');
+    $('article:hidden').show('fast');
+    }
+  }
+}
+
+$('.task-card-wrap').on('click', '.task-complete-btn', taskCompleted)
+
+function taskCompleted() {
+  var parsedTheObject = JSON.parse(localStorage.getItem($(this).parent('article').attr('id')));
+  if (parsedTheObject.completed === false) {
+    parsedTheObject.completed = true;
+    $(this).siblings('h1, p, h2').toggleClass('completed');
+  } else { 
+    parsedTheObject.completed = false;
+    $(this).siblings('h1, p, h2').toggleClass('completed');
+  }
+  localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
 
 function createCard(id,title,task,counter = 0) {
@@ -107,20 +130,6 @@ function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
     localStorage.setItem(id, JSON.stringify(parsedObj));
   };
 };
-
-$('.task-card-wrap').on('click', '.task-complete-btn', taskCompleted)
-
-function taskCompleted() {
-  $(this).siblings('h1, p, h2').toggleClass('completed');
-  var parsedTheObject = JSON.parse(localStorage.getItem($(this).parent('article').attr('id')));
-  if (parsedTheObject.completed === false) {
-    parsedTheObject.completed = true;
-  } else { 
-    parsedTheObject.completed = false;
-  }
-  localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
-}
-
 
 $('.task-card-wrap').on('click', '.delete-button', deleteCard)
 
