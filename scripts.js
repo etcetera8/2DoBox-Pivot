@@ -48,7 +48,7 @@ function taskCompleted() {
 }
 
 function createCard(id,title,task,counter = 0) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical' ];
 
   $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
   <h1 class="user-task" contenteditable="true">${title}</h1>
@@ -100,9 +100,9 @@ function upVote() {
 }
 
 function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
   $(thisEl).siblings('.downvote-button').removeAttr('disabled');
-  if (parsedObj.counter === 2) {
+  if (parsedObj.counter === 4) {
     $(thisEl).attr('disabled', true);
   } else { parsedObj.counter++;
     $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
@@ -122,7 +122,7 @@ function downVote() {
 }
 
 function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical' ];
   if (parsedObj.counter === 0) {
     $(thisEl).attr('disabled', true);
   } else { parsedObj.counter--;
