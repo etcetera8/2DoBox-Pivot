@@ -18,7 +18,18 @@ function retrieveCard() {
       $(`#${completedCardId}`).hide()
     }
   };
+  topTen(); 
 }
+
+function topTen() {
+  $('article').hide();
+  for (var i=0; i < 10; i++) {  
+    var id = ($('article')[i].id);
+    console.log(id)
+    $(`#${id}`).show();
+  } 
+}
+
 $('.show-completed-btn').on('click', showCompleted);
 
 function showCompleted() {
