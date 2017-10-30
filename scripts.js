@@ -28,7 +28,6 @@ function showCompleted() {
     if (parsedObject.completed === true) {
       var completedCardId = parsedObject.id
     $('article:hidden').find('h1, p, h2').toggleClass('completed');
-    console.log($('article:hidden').find('h1, p, h2'))
     $('article:hidden').show('fast');
     }
   }
@@ -43,6 +42,7 @@ function taskCompleted() {
     $(this).siblings('h1, p, h2').toggleClass('completed');
   } else { 
     parsedTheObject.completed = false;
+    $(this).siblings('h1, p, h2').toggleClass('completed');
   }
   localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
