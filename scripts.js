@@ -13,15 +13,25 @@ function retrieveCard() {
     var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
     createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);
-    console.log(parsedObject.completed)
     if (parsedObject.completed === true) {
-      console.log(parsedObject.id)
       var completedCardId = parsedObject.id
-      console.log($(`<article id="${completedCardId}">`))
-      $(`#${completedCardId}`).hide();
-      
+      console.log($(`#${completedCardId}`).siblings('h1, p, h2'))
+      $(`#${completedCardId}`).hide().toggleClass('completed');
     }
   };
+}
+$('.show-completed-btn').on('click', showCompleted);
+
+function showCompleted() {
+  for (let i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    if (parsedObject.completed === true) {
+      var completedCardId = parsedObject.id
+    $('article:hidden').show('fast');
+    $(`#${completedCardId}`).siblings('h1, p, h2').toggleClass('completed');
+    }
+  }
 }
 
 function createCard(id,title,task,counter = 0) {
