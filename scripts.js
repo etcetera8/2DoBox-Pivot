@@ -2,7 +2,7 @@ var TaskCard = function(title, task, id) {
   this.title = title;
   this.task = task;
   this.id = id;
-  this.counter = 0;
+  this.counter = 2;
   this.completed = false;
 };
 
@@ -47,8 +47,8 @@ function taskCompleted() {
   localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
 
-function createCard(id,title,task,counter = 0) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+function createCard(id,title,task,counter = 2) {
+  var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical' ];
 
   $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
   <h1 class="user-task" contenteditable="true">${title}</h1>
@@ -56,7 +56,7 @@ function createCard(id,title,task,counter = 0) {
     <p class="user-task-details" contenteditable="true">${task}</p>
     <button class="upvote-button" aria-label="upvote button"></button>
     <button class="downvote-button" aria-label="downvote button"></button>
-    <h2>quality: <span class="rating">${ratingArray[counter]}</span></h2>
+    <h2>Importance: <span class="rating">${ratingArray[counter]}</span></h2>
     <button class="task-complete-btn ${id}">Task Completed</button>
   <hr>
   </article>`);
@@ -100,9 +100,9 @@ function upVote() {
 }
 
 function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
   $(thisEl).siblings('.downvote-button').removeAttr('disabled');
-  if (parsedObj.counter === 2) {
+  if (parsedObj.counter === 4) {
     $(thisEl).attr('disabled', true);
   } else { parsedObj.counter++;
     $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
@@ -122,7 +122,7 @@ function downVote() {
 }
 
 function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
-  var ratingArray = ['Swill', 'Plausible', 'Genius'];
+  var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical' ];
   if (parsedObj.counter === 0) {
     $(thisEl).attr('disabled', true);
   } else { parsedObj.counter--;
