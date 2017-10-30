@@ -15,8 +15,7 @@ function retrieveCard() {
     createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);
     if (parsedObject.completed === true) {
       var completedCardId = parsedObject.id
-      console.log($(`#${completedCardId}`).siblings('h1, p, h2'))
-      $(`#${completedCardId}`).hide().toggleClass('completed');
+      $(`#${completedCardId}`).hide()
     }
   };
 }
@@ -28,10 +27,24 @@ function showCompleted() {
     var parsedObject = JSON.parse(retrievedObject);
     if (parsedObject.completed === true) {
       var completedCardId = parsedObject.id
+    $('article:hidden').find('h1, p, h2').toggleClass('completed');
+    console.log($('article:hidden').find('h1, p, h2'))
     $('article:hidden').show('fast');
-    $(`#${completedCardId}`).siblings('h1, p, h2').toggleClass('completed');
     }
   }
+}
+
+$('.task-card-wrap').on('click', '.task-complete-btn', taskCompleted)
+
+function taskCompleted() {
+  var parsedTheObject = JSON.parse(localStorage.getItem($(this).parent('article').attr('id')));
+  if (parsedTheObject.completed === false) {
+    parsedTheObject.completed = true;
+    $(this).siblings('h1, p, h2').toggleClass('completed');
+  } else { 
+    parsedTheObject.completed = false;
+  }
+  localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
 
 function createCard(id,title,task,counter = 0) {
@@ -117,20 +130,6 @@ function downVoteToLocalStorage(id, obj, parsedObj, thisEl) {
     localStorage.setItem(id, JSON.stringify(parsedObj));
   };
 };
-
-$('.task-card-wrap').on('click', '.task-complete-btn', taskCompleted)
-
-function taskCompleted() {
-  $(this).siblings('h1, p, h2').toggleClass('completed');
-  var parsedTheObject = JSON.parse(localStorage.getItem($(this).parent('article').attr('id')));
-  if (parsedTheObject.completed === false) {
-    parsedTheObject.completed = true;
-  } else { 
-    parsedTheObject.completed = false;
-  }
-  localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
-}
-
 
 $('.task-card-wrap').on('click', '.delete-button', deleteCard)
 
