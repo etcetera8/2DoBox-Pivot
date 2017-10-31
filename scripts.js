@@ -25,9 +25,28 @@ function topTen() {
   $('article').hide();
   for (var i=0; i < 10; i++) {  
     var id = ($('article')[i].id);
-    console.log(id)
     $(`#${id}`).show();
   } 
+    for (let i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    if (parsedObject.completed === true) {
+      var completedCardId = parsedObject.id
+      $(`#${completedCardId}`).hide()
+    }
+  };
+
+}
+
+$('.show-more-btn').on('click', showMoreTasks);
+
+function showMoreTasks() {
+  console.log($('article:hidden'))
+  var hiddenEls = Array.from($('article:hidden'))
+  for (var i = 0; i < 5; i++) {
+    var id =hiddenEls[i].id;
+    $(`#${id}`).show();
+  }
 }
 
 $('.show-completed-btn').on('click', showCompleted);
@@ -38,8 +57,8 @@ function showCompleted() {
     var parsedObject = JSON.parse(retrievedObject);
     if (parsedObject.completed === true) {
       var completedCardId = parsedObject.id
-    $('article:hidden').find('h1, p, h2').toggleClass('completed');
-    $('article:hidden').show('fast');
+    $(`#${completedCardId}`).find('h1, p, h2').toggleClass('completed');
+    $(`#${completedCardId}`).show('fast');
     }
   }
 }
@@ -63,10 +82,10 @@ function createCard(id,title,task,counter = 2) {
 
   $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
   <h1 class="user-task" contenteditable="true">${title}</h1>
-    <button class="delete-button" aria-label="Delete Button"></button>
+    <button class="delete-button svg" aria-label="Delete Button"></button>
     <p class="user-task-details" contenteditable="true">${task}</p>
-    <button class="upvote-button" aria-label="upvote button"></button>
-    <button class="downvote-button" aria-label="downvote button"></button>
+    <button class="upvote-button svg" aria-label="upvote button"></button>
+    <button class="downvote-button svg" aria-label="downvote button"></button>
     <h2>Importance: <span class="rating">${ratingArray[counter]}</span></h2>
     <button class="task-complete-btn ${id}">Task Completed</button>
   <hr>

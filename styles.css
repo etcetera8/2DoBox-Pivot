@@ -16,7 +16,6 @@ main {
 }
 
 /*Input Area Styling*/
-
 h1 {
   color: #6D6E71;
   font-family: "Roboto Slab", serif;
@@ -88,6 +87,7 @@ p:focus {
   width: 88%;
 }
 
+
 .save-button:hover {
   background-color: #045E55;
 }
@@ -100,6 +100,26 @@ p:focus {
 #search-box {
   width: 88%;
 }
+
+.btn-wrapper{
+  display:flex;
+  justify-content: space-between;
+}
+
+.style-button {
+  background-color: #00A79D;
+  border-style: none;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 1em;
+  height: 2rem;
+  margin: 2% auto 1%;
+ }
+
+.style-button:hover {
+  background-color: #045E55;
+}
+
 
 /*Task Card Section Styling*/
 
@@ -180,7 +200,7 @@ p:focus {
 
 /*Button Styling*/
 
-.task-card button {
+.task-card .svg {
   border: none;
   cursor: pointer;
   height: 30px;
@@ -213,6 +233,16 @@ p:focus {
 
 .task-card .downvote-button:hover {
   background: url(images/downvote-hover.svg) no-repeat;
+}
+
+.task-complete-btn {
+  background-color: #E8F3F2;
+  border-style: none;
+  color: #ff3d3d;
+  cursor: pointer;
+  height: 2rem;
+  margin: 2% auto 1%;
+  float: right;
 }
 
 /*Media Queries*/
