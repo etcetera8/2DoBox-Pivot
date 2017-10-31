@@ -25,9 +25,28 @@ function topTen() {
   $('article').hide();
   for (var i=0; i < 10; i++) {  
     var id = ($('article')[i].id);
-    console.log(id)
     $(`#${id}`).show();
   } 
+    for (let i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    if (parsedObject.completed === true) {
+      var completedCardId = parsedObject.id
+      $(`#${completedCardId}`).hide()
+    }
+  };
+
+}
+
+$('.show-more-btn').on('click', showMoreTasks);
+
+function showMoreTasks() {
+  console.log($('article:hidden'))
+  var hiddenEls = Array.from($('article:hidden'))
+  for (var i = 0; i < 5; i++) {
+    var id =hiddenEls[i].id;
+    $(`#${id}`).show();
+  }
 }
 
 $('.show-completed-btn').on('click', showCompleted);
@@ -38,8 +57,8 @@ function showCompleted() {
     var parsedObject = JSON.parse(retrievedObject);
     if (parsedObject.completed === true) {
       var completedCardId = parsedObject.id
-    $('article:hidden').find('h1, p, h2').toggleClass('completed');
-    $('article:hidden').show('fast');
+    $(`#${completedCardId}`).find('h1, p, h2').toggleClass('completed');
+    $(`#${completedCardId}`).show('fast');
     }
   }
 }
