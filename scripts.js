@@ -82,10 +82,10 @@ function createCard(id,title,task,counter = 2) {
 
   $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
   <h1 class="user-task" contenteditable="true">${title}</h1>
-    <button class="delete-button" aria-label="Delete Button"></button>
+    <button class="delete-button svg" aria-label="Delete Button"></button>
     <p class="user-task-details" contenteditable="true">${task}</p>
-    <button class="upvote-button" aria-label="upvote button"></button>
-    <button class="downvote-button" aria-label="downvote button"></button>
+    <button class="upvote-button svg" aria-label="upvote button"></button>
+    <button class="downvote-button svg" aria-label="downvote button"></button>
     <h2>Importance: <span class="rating">${ratingArray[counter]}</span></h2>
     <button class="task-complete-btn ${id}">Task Completed</button>
   <hr>
