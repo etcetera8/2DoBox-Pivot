@@ -63,6 +63,32 @@ function showCompleted() {
   }
 }
 
+$('.none-btn').on('click', filterNone);
+$('.low-btn').on('click', filterLow);
+
+function loopThroughStorage(countNum) {
+  event.preventDefault();
+  for (let i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
+    var parsedObject = JSON.parse(retrievedObject);
+    var cardId = parsedObject.id;
+    $(`#${cardId}`).show();
+    if (parsedObject.counter != countNum) {
+      $(`#${cardId}`).hide();
+   } 
+  }
+}
+
+function filterNone() {
+  loopThroughStorage(0);
+}
+
+function filterLow() {
+  loopThroughStorage(1);
+}
+
+
+
 $('.task-card-wrap').on('click', '.task-complete-btn', taskCompleted)
 
 function taskCompleted() {
