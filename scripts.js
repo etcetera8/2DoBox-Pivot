@@ -23,7 +23,7 @@ function retrieveCard() {
 
 function topTen() {
   $('article').hide();
-  for (var i=0; i < 10; i++) {  
+  for (var i=0; i < 5; i++) {  
     var id = ($('article')[i].id);
     $(`#${id}`).show();
   } 
@@ -35,7 +35,6 @@ function topTen() {
       $(`#${completedCardId}`).hide()
     }
   };
-
 }
 
 $('.show-more-btn').on('click', showMoreTasks);
@@ -43,7 +42,7 @@ $('.show-more-btn').on('click', showMoreTasks);
 function showMoreTasks() {
   console.log($('article:hidden'))
   var hiddenEls = Array.from($('article:hidden'))
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 10; i++) {
     var id =hiddenEls[i].id;
     $(`#${id}`).show();
   }
@@ -57,7 +56,7 @@ function showCompleted() {
     var parsedObject = JSON.parse(retrievedObject);
     if (parsedObject.completed === true) {
       var completedCardId = parsedObject.id
-    $(`#${completedCardId}`).find('h1, p, h2').toggleClass('completed');
+    $(`#${completedCardId}`).find('h1, p, h2').addClass('completed');
     $(`#${completedCardId}`).show('fast');
     }
   }
