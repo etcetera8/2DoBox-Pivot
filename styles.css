@@ -52,8 +52,8 @@ input {
 }
 
 textarea {
-  height: 6rem;
   resize: none;
+  line-height: 30px;
 }
 
 button:focus,
@@ -86,7 +86,6 @@ p:focus {
   max-width: 760px;
   width: 88%;
 }
-
 
 .save-button:hover {
   background-color: #045E55;
@@ -267,9 +266,9 @@ p:focus {
 }
 
 .task-complete-btn {
-  background-color: ;
+  background-color:#FFF;
   border-style: none;
-  color: #FFFFFF;
+  color: #008790;
   cursor: pointer;
   height: 2rem;
   float: right;
