@@ -26,6 +26,7 @@ $('.low-btn').on('click', filterLow);
 $('.normal-btn').on('click', filterNormal);
 $('.high-btn').on('click', filterHigh);
 $('.critical-btn').on('click', filterCritical);
+$('.remove-filter').on('click', removeFilter);
 $('.task-card-wrap').on('click', '.delete-button', deleteCard)
 $('.task-card-wrap').on('blur', 'p', persistTextEdit);
 
@@ -112,6 +113,10 @@ function filterHigh() {
 
 function filterCritical() {
   loopThroughStorage(4);
+}
+
+function removeFilter() {
+  loopThroughStorage(i);
 }
 
 function taskCompleted() {
