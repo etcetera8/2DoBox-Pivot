@@ -112,24 +112,24 @@ function taskCompleted() {
   var parsedTheObject = JSON.parse(localStorage.getItem($(this).parent('article').attr('id')));
   if (parsedTheObject.completed === false) {
     parsedTheObject.completed = true;
-    $(this).siblings('h1, p, h2').toggleClass('completed');
   } else { 
     parsedTheObject.completed = false;
-    $(this).siblings('h1, p, h2').toggleClass('completed');
   }
+      $(this).siblings('h1, p, h2').toggleClass('completed');
+
   localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
 
-function createCard(id,title,task,counter = 2) {
+function createCard(id,title,task,counter = 2, completed) {
   var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical' ];
-
+  var completedClass = completed ? "completed" : "";
   $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
-  <h1 class="user-task" contenteditable="true">${title}</h1>
+  <h1 class="user-task ${completedClass}" contenteditable="true">${title}</h1>
     <button class="delete-button svg" aria-label="Delete Button"></button>
-    <p class="user-task-details" contenteditable="true">${task}</p>
+    <p class="user-task-details ${completedClass}" contenteditable="true">${task}</p>
     <button class="upvote-button svg" aria-label="upvote button"></button>
     <button class="downvote-button svg" aria-label="downvote button"></button>
-    <h2>Importance: <span class="rating">${ratingArray[counter]}</span></h2>
+    <h2 class = ${completedClass}>Importance: <span class="rating">${ratingArray[counter]}</span></h2>
     <button class="task-complete-btn ${id}">Task Completed</button>
   <hr>
   </article>`);
@@ -238,7 +238,7 @@ function arrayOfLocalStorage() {
 function runSearch(newArray) {
   var searchInput = $('#search-box').val().toUpperCase();
   var searchedArray = newArray.filter(function(card) {
-    return card.title.toUpperCase().includes(searchInput) || card.task.toUpperCase().includes(searchInput);
+    return (card.title.toUpperCase().includes(searchInput) || card.task.toUpperCase().includes(searchInput)) && !card.completed;
   });
   printSearchResults(searchedArray);
 };
@@ -249,7 +249,7 @@ function enableSaveButton() {
 
 function printSearchResults(searchedArray) {
   searchedArray.forEach(function(result) {
-    createCard(result.id,result.title,result.task,result.counter);
+    createCard(result.id,result.title,result.task,result.counter, result.completed);
   });
 };
 
