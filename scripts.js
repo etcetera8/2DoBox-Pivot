@@ -88,7 +88,6 @@ function loopThroughStorage(countNum) {
     var parsedObject = JSON.parse(retrievedObject);
     var cardId = parsedObject.id;
     $(`#${cardId}`).show();
-    $(`#${cardId}`).find('h1, p, h2').toggleClass('completed');
     if (parsedObject.counter != countNum) {
       $(`#${cardId}`).hide();
    } 
