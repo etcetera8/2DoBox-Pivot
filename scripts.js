@@ -141,6 +141,10 @@ function createCard(id,title,task,counter = 2, completed) {
   </article>`);
 };
 
+$(document).on('keypress', 'h1', function(e){
+    return e.which != 13; 
+});   
+
 function saveCard() {
   event.preventDefault();
   var titleInput = $('#title-input').val();
