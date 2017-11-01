@@ -101,7 +101,31 @@ p:focus {
   width: 88%;
 }
 
+.importance-btn-wrapper {
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-around;
+  width: 89%;
+}
+
+.importance {
+  flex: 1;
+  background-color: #FFFFFF;
+  border-style: none;
+  color: #00A79D;
+  cursor: pointer;
+  font-size: 1em;
+  height: 2rem;
+  margin: 2% 4% auto;
+}
+
 .btn-wrapper{
+  text-align: right;
+  width: 87%;
+  margin-bottom: 5%;
+}
+
+.show-more{
   display:flex;
   justify-content: space-between;
 }
@@ -115,6 +139,13 @@ p:focus {
   height: 2rem;
   margin: 2% auto 1%;
  }
+
+.show-completed-btn{
+  background-color: #FFF;
+  color: #00A79D;
+  float: right;
+  align-items: flex-end;
+}
 
 .style-button:hover {
   background-color: #045E55;
@@ -236,12 +267,11 @@ p:focus {
 }
 
 .task-complete-btn {
-  background-color: #E8F3F2;
+  background-color: ;
   border-style: none;
-  color: #ff3d3d;
+  color: #FFFFFF;
   cursor: pointer;
   height: 2rem;
-  margin: 2% auto 1%;
   float: right;
 }
 
