@@ -6,6 +6,11 @@ var TaskCard = function(title, task, id) {
   this.completed = false;
 };
 
+$('textarea').keydown(function(e) {
+    if(e.which == 13) { return false; }
+});
+
+
 $(document).ready(retrieveCard);
 
 function retrieveCard() {
@@ -76,6 +81,7 @@ function loopThroughStorage(countNum) {
     var parsedObject = JSON.parse(retrievedObject);
     var cardId = parsedObject.id;
     $(`#${cardId}`).show();
+    $(`#${cardId}`).find('h1, p, h2').toggleClass('completed');
     if (parsedObject.counter != countNum) {
       $(`#${cardId}`).hide();
    } 
