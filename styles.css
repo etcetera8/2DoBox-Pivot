@@ -52,8 +52,8 @@ input {
 }
 
 textarea {
-  height: 6rem;
   resize: none;
+  line-height: 30px;
 }
 
 button:focus,
