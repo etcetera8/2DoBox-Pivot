@@ -26,6 +26,7 @@ $('.low-btn').on('click', filterLow);
 $('.normal-btn').on('click', filterNormal);
 $('.high-btn').on('click', filterHigh);
 $('.critical-btn').on('click', filterCritical);
+$('.remove-filter').on('click', removeFilter);
 $('.task-card-wrap').on('click', '.delete-button', deleteCard)
 $('.task-card-wrap').on('blur', 'p', persistTextEdit);
 
@@ -87,7 +88,6 @@ function loopThroughStorage(countNum) {
     var parsedObject = JSON.parse(retrievedObject);
     var cardId = parsedObject.id;
     $(`#${cardId}`).show();
-    $(`#${cardId}`).find('h1, p, h2').toggleClass('completed');
     if (parsedObject.counter != countNum) {
       $(`#${cardId}`).hide();
    } 
@@ -112,6 +112,10 @@ function filterHigh() {
 
 function filterCritical() {
   loopThroughStorage(4);
+}
+
+function removeFilter() {
+  loopThroughStorage(i);
 }
 
 function taskCompleted() {
@@ -140,6 +144,10 @@ function createCard(id,title,task,counter = 2, completed) {
   <hr>
   </article>`);
 };
+
+$(document).on('keypress', 'h1', function(e){
+    return e.which != 13; 
+});   
 
 function saveCard() {
   event.preventDefault();
