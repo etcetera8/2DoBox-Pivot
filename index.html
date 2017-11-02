@@ -16,6 +16,8 @@
           <button type="submit" class="save-button" disabled>save</button>
         </form>
       </div>
+     
+
       <form>
         <div class="importance-btn-wrapper">
           <button class='importance none-btn'>None</button>
@@ -25,15 +27,23 @@
           <button class='importance critical-btn'>Critical</button>
           <button class="importance remove-filter">Show All</button>
         </div>
+      
         <input type="search" name="search-box" id="search-box" placeholder="Search" aria-label="Search Existing Ideas">
       </form>
-      <div class="btn-wrapper">
+          <div class="importance-wrapper">
+            <button class='importance none-btn'>None</button>
+            <button class='importance low-btn'>Low</button>
+            <button class='importance normal-btn'>Normal</button>
+            <button class='importance high-btn'>High</button>
+            <button class='importance critical-btn'>Critical</button>
+         </div>
+      <div class = "show-btn-wrapper">
         <button class="show-completed-btn style-button">Show Completed</button>
       </div>
     </main>
     <section class="task-card-wrap">
     </section>
-    <div class="show-more">
+    <div class="show-btn-wrapper">
       <button class="show-more-btn style-button">Show More</button>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
