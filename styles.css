@@ -354,6 +354,12 @@ p:focus {
   .importance-wrapper {
     width:100%;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    font-size: 3em;
   }
 
   .show-btn-wrapper {
