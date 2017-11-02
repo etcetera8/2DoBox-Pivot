@@ -112,7 +112,7 @@ p:focus {
   transition: background 1s;
  }
 
- .style-button:hover {
+.style-button:hover {
   background:#E1F1F0 ;
   border: 1px solid #00A79D;
  }
@@ -152,7 +152,7 @@ p:focus {
 
 .show-btn-wrapper {
   width: 88%;
-  max-width: 760px;
+  max-width: 715px;
   margin: 0 auto;
   text-align: right;
 }
@@ -169,6 +169,20 @@ p:focus {
   border: 1px solid #00A79D;
 }
 
+.task-complete-btn {
+  border-style: none;
+  color: #00A79D;
+  cursor: pointer;
+  height: 2rem;
+  float: right;
+  background: none;
+}
+
+.show-more-btn {
+  border: 2px solid #E1F1F0;
+  color: #00A79D;
+  background: none;
+}
 
 /*Task Card Section Styling*/
 
@@ -265,7 +279,6 @@ p:focus {
   transition: background 1s;
 }
 
-
 .task-card .delete-button:hover {
   background: url(images/delete-hover.svg) no-repeat;
 }
@@ -288,19 +301,11 @@ p:focus {
   background: url(images/downvote-hover.svg) no-repeat;
 }
 
-.task-complete-btn {
-  border-style: none;
-  color: #00A79D;
-  cursor: pointer;
-  height: 2rem;
-  float: right;
-}
 
 /*Media Queries*/
-
-@media screen and (min-width: 650px) {
+@media screen and (max-width: 650px) {
   h1 {
-    font-size: 3.3em;
+    font-size: 3em;
   }
 
   input,
@@ -308,9 +313,24 @@ p:focus {
     height: 2em;
     margin: 2% auto 1%;
   }
+
+  .task-complete-btn {
+    background: #fff;
+    border-style: none;
+    color: #00A79D;
+    cursor: pointer;
+    height: 2rem;
+    float: right;
+  }
+
+  .show-more-btn {
+    border: 2px solid #E1F1F0;
+    color: #00A79D;
+    background: none;
+  }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 900px) {
   h1 {
     font-size: 5em;
   }
@@ -318,4 +338,49 @@ p:focus {
   .task-card {
     width: 100%;
   }
+
+  .task-complete-btn {
+    background: transparent;
+    border-style: none;
+    color: #00A79D;
+    cursor: pointer;
+    height: 2rem;
+    float: right;
+  }
+
+  .show-more-btn {
+    border: 2px solid #E1F1F0;
+    color: #00A79D;
+    background: none;
+  }
+}
+
+@media screen and (max-width: 361px) {
+  .importance-wrapper {
+    width:100%;
+    margin: 0;
+  }
+
+  .show-btn-wrapper {
+    text-align: center;
+  }
+  .show-completed-btn {
+    margin-top: 15px;
+  }
+
+  .task-complete-btn {
+    background: none;
+    border-style: none;
+    color: #00A79D;
+    cursor: pointer;
+    height: 2rem;
+    float: right;
+  }
+
+  .show-more-btn {
+    border: 2px solid #E1F1F0;
+    color: #00A79D;
+    background: none;
+  }
+
 }
