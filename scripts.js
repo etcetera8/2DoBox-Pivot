@@ -149,6 +149,22 @@ $(document).on('keypress', 'h1', function(e){
     return e.which != 13; 
 });   
 
+$('#task-input').on('keypress', disableSubmit);
+
+function disableSubmit() {
+if($('#task-input').val().length >= 10) {
+  $('.save-button').attr('disabled', true);
+  }
+};
+
+$('#task-input').on('keyup', characterCounter);
+
+function characterCounter() {
+  var length = $(this).val().length;
+  console.log(length+1);
+  $('#counter').text(length);
+  }
+
 function saveCard() {
   event.preventDefault();
   var titleInput = $('#title-input').val();
@@ -157,6 +173,7 @@ function saveCard() {
   createCard(dateNow, titleInput, taskInput);
   $('form')[0].reset();
   disableSaveButton();
+  $('#counter').text('');
   sendCardToLocalStorage(titleInput, taskInput, dateNow);
 }
 
