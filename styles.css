@@ -38,6 +38,8 @@ textarea {
   max-width: 750px;
   padding: 2px 5px;
   width: 87%;
+  height: 2em;
+  margin: 2% auto 1%;
 }
 
 input::placeholder,
@@ -151,7 +153,7 @@ p:focus {
 
 .show-btn-wrapper {
   width: 88%;
-  max-width: 715px;
+  max-width: 750px;
   margin: 0 auto;
   text-align: right;
 }
@@ -305,12 +307,6 @@ p:focus {
     font-size: 3em;
   }
 
-  input,
-  textarea {
-    height: 2em;
-    margin: 2% auto 1%;
-  }
-
   .task-complete-btn {
     background: #fff;
     border-style: none;
@@ -363,6 +359,7 @@ p:focus {
   .show-btn-wrapper {
     text-align: center;
   }
+
   .show-completed-btn {
     margin-top: 15px;
   }
