@@ -1,12 +1,11 @@
 /*Body Styling*/
-
 * {
   border-style: border-box; 
   margin: 0;
 }
 
 body {
-  font-size: 18px
+  font-size: 18px;
   margin: 0;
 }
 
@@ -185,7 +184,6 @@ p:focus {
 }
 
 /*Task Card Section Styling*/
-
 .task-card-wrap {
   margin: auto;
   max-width: 750px;
@@ -214,7 +212,6 @@ p:focus {
 }
 
 /*Task Card Styling*/
-
 .task-card {
   margin: auto;
   position: relative;
@@ -262,7 +259,6 @@ p:focus {
 }
 
 /*Button Styling*/
-
 .task-card .svg {
   border: none;
   cursor: pointer;
@@ -304,6 +300,7 @@ p:focus {
 
 /*Media Queries*/
 @media screen and (max-width: 650px) {
+  
   h1 {
     font-size: 3em;
   }
@@ -331,6 +328,7 @@ p:focus {
 }
 
 @media screen and (max-width: 900px) {
+  
   h1 {
     font-size: 5em;
   }
@@ -356,6 +354,7 @@ p:focus {
 }
 
 @media screen and (max-width: 361px) {
+  
   .importance-wrapper {
     width:100%;
     margin: 0;
@@ -382,5 +381,4 @@ p:focus {
     color: #00A79D;
     background: none;
   }
-
 }
