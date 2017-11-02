@@ -55,7 +55,6 @@ function hideMore() {
   var objArr = Array.from($('article:visible'));
   $('article:visible').hide();
   for (var j = 0 ; j < 10; j++) {
-    console.log(objArr[j].id)
     $(`#${objArr[j].id}`).show()
   }
 }
@@ -91,6 +90,9 @@ function loopThroughStorage(countNum) {
     if (parsedObject.counter != countNum) {
       $(`#${cardId}`).hide();
    } 
+    if (countNum === -1 && parsedObject.completed === false) {
+      $(`#${parsedObject.id}`).show();
+   }
   }
 }
 
@@ -115,7 +117,7 @@ function filterCritical() {
 }
 
 function removeFilter() {
-  loopThroughStorage(i);
+  loopThroughStorage(-1);
 }
 
 function taskCompleted() {
