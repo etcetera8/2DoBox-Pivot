@@ -148,7 +148,10 @@ $(document).on('keypress', 'h1', function(e){
 });   
 
 $('textarea').keydown(function(e) {
-    if(e.which == 13) { return false; }
+    if(e.which == 13 && !e.shiftKey) { 
+      e.preventDefault();
+      saveCard();
+    }
 });
 
 function saveCard() {
