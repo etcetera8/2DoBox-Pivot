@@ -6,10 +6,6 @@ var TaskCard = function(title, task, id) {
   this.completed = false;
 };
 
-$('textarea').keydown(function(e) {
-    if(e.which == 13) { return false; }
-});
-
 $(document).ready(retrieveCard);
 $('.save-button').on('click', saveCard);
 $('.show-more-btn').on('click', showMoreTasks);
@@ -150,6 +146,10 @@ function createCard(id,title,task,counter = 2, completed) {
 $(document).on('keypress', 'h1', function(e){
     return e.which != 13; 
 });   
+
+$('textarea').keydown(function(e) {
+    if(e.which == 13) { return false; }
+});
 
 function saveCard() {
   event.preventDefault();
