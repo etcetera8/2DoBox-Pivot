@@ -10,7 +10,6 @@ $('textarea').keydown(function(e) {
     if(e.which == 13) { return false; }
 });
 
-
 $(document).ready(retrieveCard);
 $('.save-button').on('click', saveCard);
 $('.show-more-btn').on('click', showMoreTasks);
@@ -36,11 +35,11 @@ function retrieveCard() {
     var parsedObject = JSON.parse(retrievedObject);
     createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);  
   };
-  topTen();
   hideMore();
+  topTen();
 }
 
-function topTen() {
+function hideMore() {
   for (let i = 0; i < localStorage.length; i++) {
     var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
@@ -51,7 +50,7 @@ function topTen() {
   }
 }
 
-function hideMore() {
+function topTen() {
   var objArr = Array.from($('article:visible'));
   $('article:visible').hide();
   for (var j = 0 ; j < 10; j++) {
@@ -60,11 +59,14 @@ function hideMore() {
 }
 
 function showMoreTasks() {
-  console.log($('article:hidden'))
   var hiddenEls = Array.from($('article:hidden'))
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 5; i++) {
     var id =hiddenEls[i].id;
     $(`#${id}`).show();
+    if ($(`#${id}`).find('h1').hasClass('completed')===true){
+      $(`#${id}`).hide();
+    }
+    hideMore();
   }
 }
 
@@ -85,10 +87,9 @@ function loopThroughStorage(countNum) {
   for (let i = 0; i < localStorage.length; i++) {
     var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
-    var cardId = parsedObject.id;
-    $(`#${cardId}`).show();
-    if (parsedObject.counter != countNum) {
-      $(`#${cardId}`).hide();
+    $(`#${parsedObject.id}`).show();
+    if (parsedObject.counter != countNum || parsedObject.completed === true) {
+      $(`#${parsedObject.id}`).hide();
    } 
     if (countNum === -1 && parsedObject.completed === false) {
       $(`#${parsedObject.id}`).show();
@@ -127,8 +128,7 @@ function taskCompleted() {
   } else { 
     parsedTheObject.completed = false;
   }
-      $(this).siblings('h1, p, h2').toggleClass('completed');
-
+  $(this).siblings('h1, p, h2').toggleClass('completed');
   localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
 
@@ -187,7 +187,8 @@ function upVoteToLocalStorage(id, obj, parsedObj, thisEl) {
   $(thisEl).siblings('.downvote-button').removeAttr('disabled');
   if (parsedObj.counter === 4) {
     $(thisEl).attr('disabled', true);
-  } else { parsedObj.counter++;
+  } else { 
+    parsedObj.counter++;
     $(thisEl).siblings('h2').find('.rating').text(ratingArray[parsedObj.counter]);
     localStorage.setItem(id, JSON.stringify(parsedObj));
   };
