@@ -1,9 +1,9 @@
-function TaskCard(title, task, id) {
+function TaskCard(title, task, id, counter, completed) {
   this.title = title;
   this.task = task;
   this.id = id;
-  this.counter = 2;
-  this.completed = false;
+  this.counter = counter || 2;
+  this.completed = completed || false;
 };
 
 $(document).ready(retrieveCard);
@@ -29,7 +29,8 @@ function retrieveCard() {
   for (let i = 0; i < localStorage.length; i++) {
     var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
-    createCard(parsedObject.id, parsedObject.title, parsedObject.task, parsedObject.counter);  
+    var card = new TaskCard(parsedObject.title, parsedObject.task, parsedObject.id, parsedObject.counter, parsedObject.completed)
+    createCard(card);  
   };
   hideMore();
   topTen();
@@ -128,17 +129,18 @@ function taskCompleted() {
   localStorage.setItem($(this).parent('article').attr('id'), JSON.stringify(parsedTheObject));
 }
 
-function createCard(id,title,task,counter = 2, completed) {
+function createCard(obj) {
   var ratingArray = ['None', 'Low', 'Normal', 'High', 'Critical' ];
-  var completedClass = completed ? "completed" : "";
-  $('.task-card-wrap').prepend(`<article id="${id}" class="task-card">
-  <h1 class="user-task ${completedClass}" contenteditable="true">${title}</h1>
+  console.log(obj)
+  var completedClass = obj.completed ? "completed" : "";
+  $('.task-card-wrap').prepend(`<article id="${obj.id}" class="task-card">
+  <h1 class="user-task ${obj.completedClass}" contenteditable="true">${obj.title}</h1>
     <button class="delete-button svg" aria-label="Delete Button"></button>
-    <p class="user-task-details ${completedClass}" contenteditable="true">${task}</p>
+    <p class="user-task-details ${completedClass}" contenteditable="true">${obj.task}</p>
     <button class="upvote-button svg" aria-label="upvote button"></button>
     <button class="downvote-button svg" aria-label="downvote button"></button>
-    <h2 class = ${completedClass}>Importance: <span class="rating">${ratingArray[counter]}</span></h2>
-    <button class="task-complete-btn ${id}">Task Completed</button>
+    <h2 class = ${completedClass}>Importance: <span class="rating">${ratingArray[obj.counter]}</span></h2>
+    <button class="task-complete-btn ${obj.id}">Task Completed</button>
   <hr>
   </article>`);
 };
