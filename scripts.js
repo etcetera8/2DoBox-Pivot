@@ -1,4 +1,4 @@
-var TaskCard = function(title, task, id) {
+function TaskCard(title, task, id) {
   this.title = title;
   this.task = task;
   this.id = id;
@@ -166,6 +166,12 @@ function saveCard() {
   sendCardToLocalStorage(titleInput, taskInput, dateNow);
 }
 
+function sendCardToLocalStorage(titleInput, taskInput, dateNow){
+  var taskCard = new TaskCard(titleInput, taskInput, dateNow);
+  var stringTaskCard = JSON.stringify(taskCard);
+  localStorage.setItem(dateNow, stringTaskCard);
+};
+
 function disableSaveButton() {
   $('.save-button').attr('disabled', true);
 };
@@ -177,6 +183,10 @@ function saveButtonToggle() {
     disableSaveButton();
   };
 }
+
+function enableSaveButton() {
+  $('.save-button').removeAttr('disabled');
+};
 
 function upVote() {
   var clickedCardId = $(this).parent('article').attr('id');
@@ -264,18 +274,8 @@ function runSearch(newArray) {
   printSearchResults(searchedArray);
 };
 
-function enableSaveButton() {
-  $('.save-button').removeAttr('disabled');
-};
-
 function printSearchResults(searchedArray) {
   searchedArray.forEach(function(result) {
     createCard(result.id,result.title,result.task,result.counter, result.completed);
   });
-};
-
-function sendCardToLocalStorage(titleInput, taskInput, dateNow){
-  var taskCard = new TaskCard(titleInput, taskInput, dateNow);
-  var stringTaskCard = JSON.stringify(taskCard);
-  localStorage.setItem(dateNow, stringTaskCard);
 };
